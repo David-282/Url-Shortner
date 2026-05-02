@@ -31,7 +31,7 @@ def get_short_code(original_url:str)-> dict[str, str | Any] | None:
     existing = Url.query.filter_by(generated_url=short_code).first()
     if existing is not None:
         if existing.original_url == original_url:
-            redis.setex(f"url:{short_code}", 3600, original_url)
+            redis.setex(f"url:{short_code}", 86400, original_url)
             return {
                 "short_code": short_code,
                 "short_url": f"http://localhost:5000/{short_code}",
@@ -44,7 +44,7 @@ def get_short_code(original_url:str)-> dict[str, str | Any] | None:
     db.session.add(new_url)
     db.session.commit()
 
-    redis.setex(f"url:{short_code}", 3600, original_url)
+    redis.setex(f"url:{short_code}", 86400, original_url)
 
     return{
         "short_code": short_code,
@@ -62,13 +62,13 @@ def get_original_url(short_code:str):
             raise BadRequest("Invalid Short Url")
 
         original_url = url.original_url
-        redis.setex(f"url:{short_code}", 3600, original_url)
+        redis.setex(f"url:{short_code}", 86400, original_url)
     redis.incr(f"clicks:{short_code}")
 
     return original_url
 
 
-def get_stats(short_code:str):
+def get_url_stats(short_code:str):
     url_entry = Url.query.filter_by(generated_url=short_code).first()
 
     if not url_entry:
