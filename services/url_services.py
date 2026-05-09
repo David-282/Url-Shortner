@@ -23,7 +23,6 @@ def get_short_code(original_url:str)-> dict[str, str | Any] | None:
             return {
                 "short_code": short_code,
                 "short_url": f"http://localhost:5000/{short_code}",
-                "original_url": original_url
             }
         else:
             short_code = generate_short_url(original_url, 10)
@@ -35,7 +34,6 @@ def get_short_code(original_url:str)-> dict[str, str | Any] | None:
             return {
                 "short_code": short_code,
                 "short_url": f"http://localhost:5000/{short_code}",
-                "original_url": original_url
             }
         else:
             short_code = generate_short_url(original_url, 10)
@@ -49,7 +47,8 @@ def get_short_code(original_url:str)-> dict[str, str | Any] | None:
     return{
         "short_code": short_code,
         "short_url": f"http://localhost:5000/{short_code}",
-        "original_url": original_url
+
+        
     }
 
 def get_original_url(short_code:str):

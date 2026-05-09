@@ -5,7 +5,7 @@ from services.url_services import get_short_code, get_original_url, get_url_stat
 url_blueprint = Blueprint("url", __name__)
 
 
-@url_blueprint.route("/shorten_url", methods=["POST"])
+@url_blueprint.route("/shorten", methods=["POST"])
 def shorten_url():
     data = request.get_json()
     result= get_short_code(data["original_url"])
